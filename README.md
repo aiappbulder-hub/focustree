@@ -5,6 +5,9 @@ anti-burnout techniques on the poster: finish something, and it plants a tree in
 forever. Bigger task, bigger tree. No points, no levels, no badges — just the work and the
 record of it.
 
+**Live:** https://aiappbulder-hub.github.io/focustree/ · listed on the
+[app showcase](https://aiappbulder-hub.github.io/Landing/)
+
 ```
 open index.html
 ```

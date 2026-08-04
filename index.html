@@ -220,12 +220,12 @@ main{max-width:1180px;margin:0 auto;padding:30px 20px 120px}
   font-family:var(--head-family);font-weight:800;color:var(--accent);
   font-size:clamp(120px,40vw,300px);line-height:1;letter-spacing:-.03em;
 }
-.cd-num.pop{animation:pop .42s ease-out both}
+.cd-num.pop{animation:pop .68s ease-out both}
 @keyframes pop{
   0%{transform:scale(1.6);opacity:0}
-  22%{transform:scale(1);opacity:1}
-  72%{opacity:1}
-  100%{transform:scale(.86);opacity:.15}
+  16%{transform:scale(1);opacity:1}
+  78%{transform:scale(.99);opacity:1}
+  100%{transform:scale(.9);opacity:.18}
 }
 .cd-num.go{color:var(--green);font-size:clamp(90px,26vw,210px)}
 .cd-hint{position:absolute;bottom:38px;left:0;right:0;text-align:center;color:#43434c;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
@@ -600,7 +600,7 @@ function runCountdown(done){
     num.className = "cd-num"; void num.offsetWidth;      // restart the animation
     num.className = "cd-num pop" + (s === "GO" ? " go" : "");
     chime(s === "GO" ? "go" : "tick");
-    cdTimer = setTimeout(step, s === "GO" ? 520 : 440);
+    cdTimer = setTimeout(step, s === "GO" ? 900 : 700);
   };
   step();
 }
