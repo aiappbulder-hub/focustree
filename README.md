@@ -19,21 +19,21 @@ Everything lives in `localStorage` on your machine.
 
 ## How a session goes
 
-Every time you open it, the app counts you in — **5 · 4 · 3 · 2 · 1 · GO** in big yellow
-numbers, then drops you straight into the brain dump. No dashboard, no menu, no chance to
-drift. (Any key or click skips it.)
+Open it and you're straight on **Today** — or straight back in your running focus block.
+Today is one screen that always answers *"what should I do right now?"*:
 
-From there the flow is a rail across the top, and each step ends in one button that pushes
-you to the next:
-
-> **DUMP → PLAN → FOCUS → FOREST**
-
-| Step | What you do |
+| On Today | What it's for |
 | --- | --- |
-| **1 · Dump** | Empty your head into one box. Don't sort it — just get it out. |
-| **2 · Plan** | Triage the dump into 1 major, 3 medium, 5 small. Flag the frog. |
-| **3 · Focus** | One task, one timer, everything else visibly parked. |
-| **4 · Forest** | The trees you earned. |
+| **Up next** | One big card with the single next thing (the frog first, then biggest first) and a *Start focus* button. If a block or break is running, it shows the live clock instead. |
+| **Brain dump** | Empty your head into one box. Paste a whole list and every line becomes a thought. Each thought gets a size, *Do now*, or *Not doing*. |
+| **Today's plan** | The 1-3-5 slots. Flag the frog, break tasks into steps inline. |
+| **Quick wins** | Under two minutes? Type it, hit *Do it now*. |
+| **Planted today** | The trees you've earned so far. |
+
+**Focus** is a separate, distraction-free mode: the header disappears, and it's just the
+task, the clock, and the **one step you're on now**. A stray thought? Press `N`, type it, hit
+Enter — it lands in your brain dump and you never left. Finish the task and its tree grows
+in place, with the next task one click away.
 
 At the end of the day, **Close the day** runs the shutdown ritual so work stops leaking into
 the evening.
@@ -44,15 +44,15 @@ the evening.
 
 | Technique | In the app |
 | --- | --- |
-| **The 5-second rule** | The 5·4·3·2·1·GO countdown on every app launch and every focus session — action before hesitation. |
+| **The 5-second rule** | The 5·4·3·2·1·GO countdown right before every focus block — action before hesitation, at the moment hesitation actually happens. |
 | **The 1-3-5 rule** | The planner: 1 major, 3 medium, 5 small, hard-capped. A 4th medium is simply refused. |
-| **The Pomodoro method** | 25/5 timer that auto-rolls into breaks, with a long break every 4th round. |
+| **The Pomodoro method** | 25/5 timer that rolls into a break automatically, with a long break every 4th round. When a break ends it waits for you rather than burning a block while you're away. A desktop notification reaches you in other windows. |
 | **The 2-minute rule** | The Quick wins bar — type it, hit *Do it now*, a 2:00 clock runs, done. It plants a shrub. |
 | **Eat the frog** | Flag one task 🐸. It gets pinned to the top with a nudge, and *Start focusing* picks it automatically. |
-| **Stop multitasking** | Exactly one task can be active. The rest sit dimmed under "parked while you focus", and switching mid-session asks you to confirm. |
-| **Break big tasks down** | Any task expands into steps. They're checklists for you, not a score. |
+| **Stop multitasking** | Exactly one task can be active. Focus mode hides everything else (it just says "4 parked"), and switching mid-block asks you to confirm. |
+| **Break big tasks down** | Any task expands into steps, added inline. In Focus you only see the step you're on now. |
 | **A "not to do" list** | A deliberate parking lot. Tasks and dumped thoughts get demoted here instead of deleted — and can come back. |
-| **Brain dump** *(added)* | Capture first, categorize later. Each item triages three ways: plan it, do it now, or don't do it. |
+| **Brain dump** *(added)* | Capture first, categorize later — from Today, or from inside a focus block with `N`. Each item triages three ways: plan it, do it now, or don't do it. |
 | **Shutdown ritual** *(added)* | End the day on purpose: see today's trees, carry over or drop what's left, set tomorrow's frog, close. |
 
 ---
@@ -62,7 +62,8 @@ the evening.
 Each finished task plants one tree, drawn as procedural SVG from a seeded PRNG — so a tree
 looks the same every time you come back, but no two are alike.
 
-- **Species is random** at plant time: oak, birch, maple, willow, or pine.
+- **Species is random**, picked when the task is created: oak, birch, maple, willow, or
+  pine. You see the tree you're growing on the Up next card and, faded, while you focus.
 - **Size comes only from the task size** — that's the only rule:
 
   | Task | Tree |
@@ -84,7 +85,7 @@ Everything is kept under the `focustree.v1` key in `localStorage`:
 ```js
 {
   version: 1,
-  tasks:    [{ id, title, size, frog, steps, done, createdAt, completedAt }],
+  tasks:    [{ id, title, size, frog, steps, done, createdAt, completedAt, seed, species, treeId }],
   inbox:    [{ id, text, capturedAt }],
   notToDo:  [{ id, text, addedAt }],
   forest:   [{ id, seed, species, size, plantedAt, taskTitle }],
@@ -108,9 +109,9 @@ the defaults in `fresh()` inside `index.html`.
 | Key | Does |
 | --- | --- |
 | `Space` | Start / pause the timer (on Focus) |
-| `1` `2` `3` `4` | Dump · Plan · Focus · Forest |
-| `N` | Jump to the capture box |
-| `Esc` | Close a dialog |
+| `N` | Capture a thought — the dump on Today, the park-it box in Focus |
+| `1` `2` `3` `4` | Today · Focus · Forest · Not to do |
+| `Esc` | Close a dialog · leave an input · leave Focus |
 | any key | Skip the countdown |
 
 ## Notes
